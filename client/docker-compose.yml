@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./achievements-portal/client/src
+    ports:
+      - "3000:80"
+    container_name: achievements-portal-client
