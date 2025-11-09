@@ -1,0 +1,36 @@
+# This is your ci.yml file
+name: CI Pipeline
+
+# Triggers the workflow on push or pull request to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # The type of machine to run the job on
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checks out your repository code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Sets up Node.js version 18
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    # Step 3: Install Dependencies (inside the /client folder)
+    - name: Install Dependencies
+      run: npm install
+      # This "working-directory" is the CRITICAL change for your project
+      working-directory: ./client
+
+    # Step 4: Run Tests (inside the /client folder)
+    - name: Run Tests
+      run: npm test
+      working-directory: ./client
